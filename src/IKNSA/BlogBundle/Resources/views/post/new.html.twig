@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 style="text-align:center  ">Création de poste</h1>
+    <div class="container">
+    <a class="btn btn btn-outline-success" type="button" href="{{ path('post_index') }}">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    </a>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input class="btn btn btn-outline-primary" type="submit" value="Create" />
+    {{ form_end(form) }}
+
+    </div>
+{% endblock %}

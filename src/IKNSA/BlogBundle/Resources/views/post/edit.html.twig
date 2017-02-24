@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 style="text-align:center  ">Editer un poste</h1>
+    <div class="container">
+    <a class="btn btn btn-outline-success" type="button" href="{{ path('post_index') }}">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    </a><br><br>
+
+      <div>
+        {{ form_start(edit_form) }}
+            {{ form_widget(edit_form) }}
+            <input type="submit" value="Valider" />
+        {{ form_end(edit_form) }}
+      </div>
+      <br><br>
+      <div>
+                {{ form_start(delete_form) }}
+                    <button  class="btn btn btn-outline-danger" type="submit" value="Delete">
+                    <i class="fa fa-trash-o fa-lg"></i>
+                    </button>
+                {{ form_end(delete_form) }}
+     </div>
+    </div>
+{% endblock %}

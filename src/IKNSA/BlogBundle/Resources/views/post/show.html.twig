@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div style="padding-bottom:20px; border-radius:20px;"class="container">
+    <h1><br>Détail du poste</h1>
+            <a  style="margin-right:5px;"class="btn btn btn-outline-success" type="button" href="{{ path('post_index') }}">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </a><br><br>
+    <div style="margin-bottom:25px;" class="row">
+      <div class="col-sm-6 col-lg-6">
+        <table class="table">
+            <tbody class="thead-default">
+                <tr>
+                    <th  style="width:10%;">Id</th>
+                    <td>{{ post.id }}</td>
+                </tr>
+                <tr>
+                    <th>Image</th>
+                    <td>
+                        {% if post.getImage %}
+                            <img src="{{ asset('uploads/pictures/' ~ post.getImage) }}">
+                        {% else %}
+                            <p>Aucune image</p>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Titre</th>
+                    <td>{{ post.title }}</td>
+                </tr>
+                <tr>
+                    <th>Extrait</th>
+                    <td>{{ post.summary }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-6 col-lg-6">
+    <table class="table">
+        <tbody class="thead-default">
+            <tr>
+                <th>Contenu</th>
+                <td>{{ post.content }}</td>
+            </tr>
+            <tr>
+                <th>Date de création</th>
+                <td>{% if post.createdAt %}{{ post.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Auteur</th>
+                <td>
+                    {% if post.user %}
+                        {{ post.user.username }}
+                    {% else %}
+                        <i>Annonymous</i>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+              <th>
+              <div class="row">
+              <a  style="margin-left:80px;"class="btn btn btn-outline-info" type="button" href="{{ path('post_edit', { 'id': post.id }) }}">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+              </div>
+              <th/>
+              {{ form_start(delete_form) }}
+                  <button  class="btn btn btn-outline-danger" type="submit" value="Delete">
+                  <i class="fa fa-trash-o fa-lg"></i>
+                  </button>
+              {{ form_end(delete_form) }}
+              <th>
+              </th>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <h4>Ajouter un commentaire </h4>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input class="btn btn-secondary" style="" type="submit" value="Créer" />
+            {{ form_end(form) }}
+        {% endif %}
+      </div>
+      <div class="col-sm-6">
+        <h4>Liste des commentaires </h4>
+        {% for comment in comments %}
+            <hr>
+            <i>Ecrit par : <b>{{ comment.user.username|title }}</b> le <em>{{ comment.createdAt.date|date('d/m/y h:i') }}</em></i>
+            <p>{{ comment.comment }}</p>
+        {% endfor %}
+      </div>
+</div>
+</div>
+
+
+{% endblock %}
